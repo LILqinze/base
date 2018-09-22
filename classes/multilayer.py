@@ -19,5 +19,3 @@ class MultiLayer:
     @property
     def layers_names(self):
         return self._layers_names
-    
-    
