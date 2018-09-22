@@ -1,5 +1,12 @@
+from .models import ModelBase
+from pylog import *
+
+
 class Layer:
     def __init__(self, model, **params):
+        if not isinstance(model, ModelBase):
+            err('Model is not instance of ModelBase class')
+
         self._model = model
         self._params = params
 

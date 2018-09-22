@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-
+import setup
 import networkx.generators as gens
 
 from classes import Layer, Models, MultiLayer
