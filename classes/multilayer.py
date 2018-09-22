@@ -10,10 +10,14 @@ from .multilayer_init import MultiLayerInitializer
 class MultiLayer:
     def __init__(self, *layers):
         initializer = MultiLayerInitializer()
-        self._layer_names, self._layers = initializer(layers)
+        self._layers_names, self._layers = initializer(layers)
 
     @property
-    def graph(self):
-        return self._graph
+    def layers(self):
+        return self._layers
 
+    @property
+    def layers_names(self):
+        return self._layers_names
+    
     
