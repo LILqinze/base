@@ -26,7 +26,7 @@ class MultiLayer:
         """
         value = int()
         dbg(f'{__file__} CLCC', True)
-        for layer_name, layer in self._layers.items():
-            dbg(layer.name)
+        for layer in self._layers.values():
+            dbg(layer)
         ok()
         return value
