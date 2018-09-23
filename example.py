@@ -9,3 +9,4 @@ multilayer = MultiLayer(
     Layer(Models.watts_strogatz_graph, n=5, p=0.2, k=3),
 )
 
+multilayer.clcc(1)

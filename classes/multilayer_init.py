@@ -4,13 +4,12 @@ from pylog import *
 
 class MultiLayerInitializer:
     def __init__(self, layers):
-        self.layers_names = self._layers_names(layers)
         self.layers = self._create_layers(layers)
 
     def __call__(self, layers=None):
         if layers:
-            return self._layers_names(layers), self._create_layers(layers)
-        return self.layers_names, self.layers
+            return self._create_layers(layers)
+        return self.layers
 
     def _layers_names(self, layers):
         names = set()
@@ -24,9 +23,11 @@ class MultiLayerInitializer:
 
     def _create_layers(self, layers):
         nx_layers = dict()
+        layers_names = self._layers_names(layers)
         dbg(f'{__file__}: Creating layers', prog=True)
-        for layer_name, layer in zip(self.layers_names, layers):
+        for layer_name, layer in zip(layers_names, layers):
             nx_layers[layer_name] = layer()
+            nx_layers[layer_name].name = layer_name
         ok()
 
         return nx_layers
