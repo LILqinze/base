@@ -14,4 +14,4 @@ multilayer = MultiLayer(
 diag.degs_dist(multilayer)
 diag.flat_degs_dist(multilayer)
 
-cc.lcc_brodka(multilayer, 1)
+cc.clcc(multilayer, 1)
