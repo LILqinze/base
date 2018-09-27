@@ -3,7 +3,7 @@ import setup
 import networkx.generators as gens
 
 import metrics.cc as cc
-import metrics.diagnostics as diag
+import metrics.diagnostic as diag
 from network import Layer, Models, MultiLayer
 
 multilayer = MultiLayer(
