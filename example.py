@@ -2,11 +2,16 @@
 import setup
 import networkx.generators as gens
 
-from classes import Layer, Models, MultiLayer
+import metrics.cc as cc
+import metrics.diagnostics as diag
+from network import Layer, Models, MultiLayer
 
 multilayer = MultiLayer(
     Layer(Models.watts_strogatz_graph, n=10, p=0.2, k=3),
     Layer(Models.watts_strogatz_graph, n=5, p=0.2, k=3),
 )
 
-multilayer.clcc(1)
+diag.degs_dist(multilayer)
+diag.flat_degs_dist(multilayer)
+
+# cc.clcc(multilayer, 1)

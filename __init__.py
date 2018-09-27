@@ -1,2 +1,2 @@
-from .classes import *
+from .network import *
 
