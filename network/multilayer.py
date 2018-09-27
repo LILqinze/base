@@ -23,3 +23,7 @@ class MultiLayer:
     def layers(self):
         return self._layers.items()
 
+    def has_edge(self, layer_name, first_node, second_node):
+        return self._layers[layer_name].has_edge(first_node, second_node)
+
+
