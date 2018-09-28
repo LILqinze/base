@@ -1,5 +1,6 @@
-from .layer import Layer
 from pylog import *
+
+from .layer import Layer
 
 
 class MultiLayerInitializer:

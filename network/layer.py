@@ -1,5 +1,6 @@
-from .models import ModelBase
 from pylog import *
+
+from .models import ModelBase
 
 
 class Layer:
