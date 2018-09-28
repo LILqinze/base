@@ -19,7 +19,7 @@ def clcc(net, node, threshold=1):
 
     :rtype:
     """
-    lcc_sum = 0
+    lcc_sum = 0.0
     neighbors_counts = {}
 
     assert node in net.available_nodes()
@@ -33,7 +33,7 @@ def clcc(net, node, threshold=1):
                         in neighbors_counts.items() if occurrences >= threshold}
 
     if not neighbors_counts:
-        return 0
+        return lcc_sum
 
     for layer in net.layers_names:
         neighbors = neighbors_counts.keys()

@@ -1,3 +1,5 @@
+from itertools import product
+
 import networkx as nx
 
 from pylog import *
@@ -28,6 +30,18 @@ class MultiLayer:
         for layer in self._layers.values():
             all_nodes.update(list(layer.nodes()))
         return all_nodes
+
+    def edges_on_layers(self):
+        return [(layer_name, self._layers[layer_name].edges()) for layer_name in self._layers.keys()]
+
+    def nodes_on_layers(self):
+        return [(layer_name, self._layers[layer_name].nodes()) for layer_name in self._layers.keys()]
+
+    def remove_edge(self, layer_name, edge):
+        self._layers[layer_name].remove_edge(*edge)
+
+    def remove_node(self, layer_name, node):
+        self._layers[layer_name].remove_node(node)
 
     def has_edge(self, layer_name, first_node, second_node):
         return self._layers[layer_name].has_edge(first_node, second_node)
