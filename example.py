@@ -18,4 +18,6 @@ diag.flat_degs_dist(multilayer)
 cc.clcc(multilayer, 1)
 
 destroyer = destroy.Destroyer(multilayer)
-destroyer.destroy_nodes(0.8)
+reduced_multilayer = destroyer.destroy_edges(0.8)
+
+cc.clcc(reduced_multilayer, 1)

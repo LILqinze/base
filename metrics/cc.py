@@ -19,7 +19,7 @@ def clcc(net, node, threshold=1):
 
     :rtype:
     """
-    lcc_sum = 0
+    lcc_sum = 0.0
     neighbors_counts = {}
 
     assert node in net.available_nodes()
