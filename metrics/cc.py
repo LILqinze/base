@@ -1,12 +1,23 @@
+from itertools import product
+
 from pylog import *
 
 
 def clcc(net, node, threshold=1):
-    """
+    """ Description
+    # TODO
+    :type net:
     :param net:
+
+    :type node:
     :param node:
+
+    :type threshold:
     :param threshold:
-    :return:
+
+    :raises:
+
+    :rtype:
     """
     lcc_sum = 0
     neighbors_counts = {}
@@ -25,8 +36,8 @@ def clcc(net, node, threshold=1):
         return 0
 
     for layer in net.layers_names:
-        for v in neighbors_counts.keys():
-            for h in neighbors_counts.keys():
-                lcc_sum += (net.has_edge(layer, h, v) + net.has_edge(layer, v, h))
+        neighbors = neighbors_counts.keys()
+        for v, h in product(neighbors, neighbors):
+            lcc_sum += (net.has_edge(layer, h, v) + net.has_edge(layer, v, h))
 
     return lcc_sum / (2 * len(neighbors_counts) * len(net.nx_layers))
