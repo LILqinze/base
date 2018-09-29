@@ -23,9 +23,9 @@ class Destroyer(object):
     def __init__(self, net):
         self._network = net
 
-    def destroy_edges(self, frac):
+    def destroy_edges(self, rm_frac):
         edges_to_destroy = reduce_to_frac(extract_from_layers(
-            self._network.edges_on_layers()), frac)
+            self._network.edges_on_layers()), rm_frac)
         reduced_net = copy.deepcopy(self._network)
 
         for layer, edge in edges_to_destroy:
@@ -33,14 +33,17 @@ class Destroyer(object):
 
         return reduced_net
 
-    def destroy_nodes(self, frac):
+    def destroy_nodes(self, rm_frac):
         nodes_to_destroy = reduce_to_frac(extract_from_layers(
-            self._network.nodes_on_layers()), frac)
+            self._network.nodes_on_layers()), rm_frac)
         reduced_net = copy.deepcopy(self._network)
 
         for layer, node in nodes_to_destroy:
             reduced_net.remove_node(layer, node)
 
         return reduced_net
+
+    def rewire_edges(self, tries):
+        pass
 
 
