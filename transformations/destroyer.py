@@ -43,4 +43,7 @@ class Destroyer(object):
 
         return reduced_net
 
+    def rewire_edges(self, tries):
+        pass
+
 
