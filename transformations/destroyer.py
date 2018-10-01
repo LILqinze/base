@@ -56,4 +56,3 @@ class Destroyer(object):
                 rewired_net.specified_layer(layer_name))
 
         return rewired_net
-      
