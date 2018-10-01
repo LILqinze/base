@@ -1,6 +1,8 @@
 import copy
 import random
 
+import networkx as nx
+
 
 def reduce_to_frac(elements, frac):
     assert 0 <= frac < 1
@@ -43,7 +45,15 @@ class Destroyer(object):
 
         return reduced_net
 
-    def rewire_edges(self, tries):
-        pass
+    def rewire_edges(self, layer_tries):
+        # TODO: add connected_double_edge_swap in the future :)
+        rewired_net = copy.deepcopy(self._network)
+        layers_to_rewire = list(rewired_net.layers_names)
+        layers_to_rewire = random.choices(layers_to_rewire, k=layer_tries)
 
+        for layer_name in layers_to_rewire:
+            nx.double_edge_swap(
+                rewired_net.specified_layer(layer_name))
 
+        return rewired_net
+      

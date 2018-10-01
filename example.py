@@ -31,3 +31,5 @@ other_ranking = rank.Rank(reduced_multilayer)
 rank_b = other_ranking.calc_rank((cc.clcc, False))
 
 rank.compare_network_ranks(rank_a, rank_b)
+
+rewired_multilayer = destroyer.rewire_edges(10)
