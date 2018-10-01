@@ -8,28 +8,28 @@ import metrics.rank as rank
 from network import Layer, Models, MultiLayer
 import transformations.destroyer as destroy
 
-multilayer = MultiLayer(
+example_nets = (
     Layer(Models.watts_strogatz_graph, n=10, p=0.2, k=3),
-    Layer(Models.watts_strogatz_graph, n=5, p=0.2, k=3),
+    Layer(Models.watts_strogatz_graph, n=5, p=0.2, k=3)
 )
 
-diag.degs_dist(multilayer)
-diag.flat_degs_dist(multilayer)
+multilayer = MultiLayer(Layer.combine(*example_nets), example_nets[0])
 
-cc.clcc(multilayer, 1)
+# diag.degs_dist(multilayer)
+# diag.flat_degs_dist(multilayer)
 
-destroyer = destroy.Destroyer(multilayer)
-reduced_multilayer = destroyer.destroy_nodes(0.9)
+# cc.clcc(multilayer, 1)
 
-# cc.clcc(reduced_multilayer, 1)
+# destroyer = destroy.Destroyer(multilayer)
+# reduced_multilayer = destroyer.destroy_nodes(0.9)
 
-ranking = rank.Rank(multilayer)
-ranking.calc_rank((diag.flat_degs_dist, True))
-rank_a = ranking.calc_rank((cc.clcc, False))
+# # cc.clcc(reduced_multilayer, 1)
 
-other_ranking = rank.Rank(reduced_multilayer)
-rank_b = other_ranking.calc_rank((cc.clcc, False))
+# ranking = rank.Rank(multilayer)
+# ranking.calc_rank((diag.flat_degs_dist, True))
+# rank_a = ranking.calc_rank((cc.clcc, False))
 
-rank.compare_network_ranks(rank_a, rank_b)
+# other_ranking = rank.Rank(reduced_multilayer)
+# rank_b = other_ranking.calc_rank((cc.clcc, False))
 
-rewired_multilayer = destroyer.rewire_edges(10)
+# rank.compare_network_ranks(rank_a, rank_b)
