@@ -21,3 +21,5 @@ destroyer = destroy.Destroyer(multilayer)
 reduced_multilayer = destroyer.destroy_edges(0.8)
 
 cc.clcc(reduced_multilayer, 1)
+
+rewired_multilayer = destroyer.rewire_edges(10)

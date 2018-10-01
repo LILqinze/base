@@ -25,6 +25,9 @@ class MultiLayer:
     def layers(self):
         return self._layers.items()
 
+    def specified_layer(self, layer_name):
+        return self._layers[layer_name]
+
     def available_nodes(self):
         all_nodes = set()
         for layer in self._layers.values():
