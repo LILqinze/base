@@ -16,7 +16,7 @@ class Layer:
     def __call__(self):
         if hasattr(self._model, 'gen'):
             return self._model.gen(**self._params)
-        return self._model
+        return self._model.model
 
     def __str__(self):
         return self.name
@@ -25,7 +25,7 @@ class Layer:
     def model(self):
         if hasattr(self._model, 'gen'):
             return self._model.gen
-        return self._model
+        return self._model.model
 
     @property
     def params(self):
@@ -46,26 +46,27 @@ class Layer:
         err('layers have to be nx.Graph or Layer instances')
 
     @classmethod
-    def _create_from_nx_graphs(cls, name, layers):
+    def _create_from_nx_graphs(cls, name, layers, directed=False):
         inf(f'Combining {len(layers)} graphs using nx.Graph objects', True)
 
         all_edges = set()
         all_nodes = list(range(max(max(layer.nodes for layer in layers))))
 
-        for layer in layers:
-            for edge in layer.edges:
-                reversed_edge = tuple(reversed(edge))
-                dbg(f'{edge} and {reversed_edge}')
-                all_edges.add(edge)
-        graph = nx.MultiDiGraph()
+        if directed:
+            all_edges = set.intersection(*list(set(layer.edges) for layer in layers))  # NOT TESTED
+        else:
+            all_edges = set.intersection(*list(set(reversed(edge) for edge in layer.edges).union(layer.edges) for layer in layers))
+
+        graph = nx.Graph()
 
         graph.add_nodes_from(all_nodes)
         graph.add_edges_from(all_edges)
+
         args = {'model': graph}
         if name:
             args['name'] = name
         ok()
-        return cls(Models.combined(**args))
+        return Layer(model=Models.combined(**args))
 
     @classmethod
     def _create_from_layers(cls, name, layers):
