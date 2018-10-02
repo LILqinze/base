@@ -4,7 +4,7 @@ from .layer import Layer
 
 
 class MultiLayerInitializer:
-    def __init__(self, layers):
+    def __init__(self, *layers):
         self.layers = self._create_layers(layers)
 
     def __call__(self, layers=None):
