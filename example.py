@@ -15,6 +15,11 @@ example_nets = (
 
 multilayer = MultiLayer(Layer.combine(*example_nets), example_nets[0])
 
+# multilayer = MultiLayer(
+#     Layer(Models.watts_strogatz_graph, n=10, p=0.2, k=3),
+#     Layer(Models.watts_strogatz_graph, n=5, p=0.2, k=3),
+# )
+
 # diag.degs_dist(multilayer)
 # diag.flat_degs_dist(multilayer)
 

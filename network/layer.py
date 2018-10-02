@@ -65,7 +65,7 @@ class Layer:
         if name:
             args['name'] = name
         ok()
-        return Models.combined(**args)
+        return cls(Models.combined(**args))
 
     @classmethod
     def _create_from_layers(cls, name, layers):
