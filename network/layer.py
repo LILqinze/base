@@ -45,10 +45,10 @@ class Layer:
             return cls._create_from_nx_graphs(name, layers)
         err('layers have to be nx.Graph or Layer instances')
 
-    @classmethod
-    def _create_from_nx_graphs(cls, name, layers, directed=False):
-        inf(f'Combining {len(layers)} graphs using nx.Graph objects', True)
 
+    @classmethod
+    @try_catch_log(f'Combining layers using nx.Graph objects')
+    def _create_from_nx_graphs(cls, name, layers, directed=False):
         all_edges = set()
         all_nodes = list(range(max(max(layer.nodes for layer in layers))))
 
@@ -65,16 +65,13 @@ class Layer:
         args = {'model': graph}
         if name:
             args['name'] = name
-        ok()
         return Layer(model=Models.combined(**args))
 
     @classmethod
+    @try_catch_log('Creating nx.Graphs from Layer objects', prog=False)
     def _create_from_layers(cls, name, layers):
-        inf('Creating nx.Graphs from Layer objects', True)
         new_layers = list()
         for layer in layers:
             new_layer = layer()
             new_layers.append(new_layer)
-        ok()
-
         return cls._create_from_nx_graphs(name, new_layers)
