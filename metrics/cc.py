@@ -2,7 +2,7 @@ from itertools import product
 
 from pylog import *
 
-
+@try_catch_log('cross-layer clustering coefficient for node: %1', dbg, print_result=True)
 def clcc(net, node, threshold=1):
     """ Description
     # TODO
