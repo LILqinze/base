@@ -9,7 +9,7 @@ from .multilayer_init import MultiLayerInitializer
 
 
 class MultiLayer:
-    # TODO iterator over layers (usefull)
+    # TODO iterator over layers (can be usefull)
     def __init__(self, *layers):
         initializer = MultiLayerInitializer(*layers)
         self._layers = initializer()

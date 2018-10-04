@@ -3,6 +3,8 @@ import random
 
 import networkx as nx
 
+from pylog import *
+
 
 def reduce_to_frac(elements, frac):
     assert 0 <= frac < 1
@@ -20,14 +22,15 @@ def extract_from_layers(elements_on_layer):
     return elements_with_layer
 
 
-class Destroyer(object):
+class Destroyer:
 
     def __init__(self, net):
         self._network = net
 
-    def destroy_edges(self, rm_frac):
-        edges_to_destroy = reduce_to_frac(extract_from_layers(
-            self._network.edges_on_layers()), rm_frac)
+    @try_catch_log('Removing %1% of nodes')
+    def remove_random_nodes(self, rm_frac):
+        edges_on_layers = self._network.edges_on_layers()
+        edges_to_destroy = reduce_to_frac(extract_from_layers(edges_on_layers), rm_frac)
         reduced_net = copy.deepcopy(self._network)
 
         for layer, edge in edges_to_destroy:
@@ -35,9 +38,10 @@ class Destroyer(object):
 
         return reduced_net
 
-    def destroy_nodes(self, rm_frac):
-        nodes_to_destroy = reduce_to_frac(extract_from_layers(
-            self._network.nodes_on_layers()), rm_frac)
+    @try_catch_log('Removing %1% of edges')
+    def remove_random_edges(self, rm_frac):
+        nodes_on_layers = self._network.nodes_on_layers()
+        nodes_to_destroy = reduce_to_frac(extract_from_layers(nodes_on_layers), rm_frac)
         reduced_net = copy.deepcopy(self._network)
 
         for layer, node in nodes_to_destroy:
@@ -45,14 +49,14 @@ class Destroyer(object):
 
         return reduced_net
 
-    def rewire_edges(self, layer_tries):
-        # TODO: add connected_double_edge_swap in the future :)
+    @try_catch_log('Rewiring random edges with no degree change')
+    def rewire_random_edges_preserving_degree(self, layer_tries):
+        # TODO add connected_double_edge_swap in the future :)
         rewired_net = copy.deepcopy(self._network)
         layers_to_rewire = list(rewired_net.layers_names)
         layers_to_rewire = random.choices(layers_to_rewire, k=layer_tries)
 
         for layer_name in layers_to_rewire:
-            nx.double_edge_swap(
-                rewired_net.specified_layer(layer_name))
+            nx.double_edge_swap(rewired_net.specified_layer(layer_name))
 
         return rewired_net

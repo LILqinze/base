@@ -45,7 +45,6 @@ class Layer:
             return cls._create_from_nx_graphs(name, layers)
         err('layers have to be nx.Graph or Layer instances')
 
-
     @classmethod
     @try_catch_log(f'Combining layers using nx.Graph objects')
     def _create_from_nx_graphs(cls, name, layers, directed=False):
@@ -53,9 +52,12 @@ class Layer:
         all_nodes = list(range(max(max(layer.nodes for layer in layers))))
 
         if directed:
-            all_edges = set.intersection(*list(set(layer.edges) for layer in layers))  # NOT TESTED
+            # TODO test whether it works
+            all_edges = set.intersection(*list(set(layer.edges) for layer in layers))
         else:
-            all_edges = set.intersection(*list(set(reversed(edge) for edge in layer.edges).union(layer.edges) for layer in layers))
+            all_edges = set.intersection(*list(set(reversed(edge)
+                                                   for edge in layer.edges).union(layer.edges)
+                                               for layer in layers))
 
         graph = nx.Graph()
 
