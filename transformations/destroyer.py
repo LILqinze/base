@@ -6,7 +6,7 @@ import networkx as nx
 from pylog import *
 
 
-def reduce_to_frac(elements, frac):
+def reduce_to_frac_with_shuffle(elements, frac):
     assert 0 <= frac < 1
     elements = list(elements)
     random.shuffle(elements)
@@ -30,7 +30,7 @@ class Destroyer:
     @try_catch_log('Removing %1% of nodes')
     def remove_random_nodes(self, rm_frac):
         edges_on_layers = self._network.edges_on_layers()
-        edges_to_destroy = reduce_to_frac(extract_from_layers(edges_on_layers), rm_frac)
+        edges_to_destroy = reduce_to_frac_with_shuffle(extract_from_layers(edges_on_layers), rm_frac)
         reduced_net = copy.deepcopy(self._network)
 
         for layer, edge in edges_to_destroy:
@@ -41,7 +41,7 @@ class Destroyer:
     @try_catch_log('Removing %1% of edges')
     def remove_random_edges(self, rm_frac):
         nodes_on_layers = self._network.nodes_on_layers()
-        nodes_to_destroy = reduce_to_frac(extract_from_layers(nodes_on_layers), rm_frac)
+        nodes_to_destroy = reduce_to_frac_with_shuffle(extract_from_layers(nodes_on_layers), rm_frac)
         reduced_net = copy.deepcopy(self._network)
 
         for layer, node in nodes_to_destroy:
