@@ -14,9 +14,9 @@
   - **flat_degree** - a degree distribution of all layers
 
 ## Implemented transformations:
-  - **destroy_nodes** - removes fraction of nodes from the entire network 
-  - **destroy_edges** - removes fraction of edges from the entire network
-  - **rewire_edges** - rewires edges in the entire network
+  - **remove_random_nodes** - removes fraction of nodes from the entire network 
+  - **remove_random_edges** - removes fraction of edges from the entire network
+  - **rewire_random_edges_preserving_degree** - rewires edges in the entire network
    
 ## Implemented operations:
   - **rank** - create rank of elements from a network
