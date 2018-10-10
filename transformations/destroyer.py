@@ -27,7 +27,7 @@ class Destroyer:
     def __init__(self, net):
         self._network = net
 
-    @try_catch_log('Removing %1% of nodes')
+    @try_catch_log('Removing %1 of nodes')
     def remove_random_nodes(self, rm_frac):
         edges_on_layers = self._network.edges_on_layers()
         edges_to_destroy = reduce_to_frac_with_shuffle(extract_from_layers(edges_on_layers), rm_frac)
@@ -38,7 +38,7 @@ class Destroyer:
 
         return reduced_net
 
-    @try_catch_log('Removing %1% of edges')
+    @try_catch_log('Removing %1 of edges')
     def remove_random_edges(self, rm_frac):
         nodes_on_layers = self._network.nodes_on_layers()
         nodes_to_destroy = reduce_to_frac_with_shuffle(extract_from_layers(nodes_on_layers), rm_frac)
