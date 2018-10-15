@@ -1,8 +1,11 @@
 from itertools import product
 
+import numpy as np
+
 from pylog import *
 
-@try_catch_log('cross-layer clustering coefficient for node: %1', dbg, print_result=True)
+
+# @try_catch_log('cross-layer clustering coefficient for node: %1', dbg, print_result=True)
 def clcc(net, node, threshold=1):
     """ Description
     # TODO
@@ -43,3 +46,11 @@ def clcc(net, node, threshold=1):
 
     result = lcc_sum / (2 * len(neighbors_counts) * len(net.nx_layers))
     return result
+
+@try_catch_log('Clcc distribution')
+def clcc_distribution(net, treshold=1):
+    # WRITTEN TO VISUALIZATOR TEST
+    # TODO real distribution not only value for each node
+    all_nodes = list(net.available_nodes())
+    results = list(map(lambda node: clcc(net, node, treshold), all_nodes))
+    return all_nodes, results
