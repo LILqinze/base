@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 import setup
-
 import networkx.generators as gens
-
 import metrics.cc as cc
 import metrics.diagnostic as diag
 import metrics.rank as rank
@@ -17,8 +15,10 @@ example_nets = [
 ]
 multilayer = MultiLayer(Layer.combine(*example_nets), *example_nets)
 
+# # GRAPH VISUALIZATION EXAMPLE
+# plot_network_layers(multilayer)
 
-# VISUALIZATION EXAMPLE
+# # VISUALIZATION EXAMPLE
 # plots = []
 # for idx in range(25):
 #     example_nets = [
@@ -27,8 +27,7 @@ multilayer = MultiLayer(Layer.combine(*example_nets), *example_nets)
 #     ]
 #     multilayer = MultiLayer(Layer.combine(*example_nets), *example_nets)
 #     results = cc.clcc_distribution(multilayer)
-#     plots.append(plot_2d_data(results[0], results[1], 'Node id', 'CLCC value'))
-
+#     plots.append((f'Some graph #{idx}', plot_2d_data(results[0], results[1], 'Node id', 'CLCC value')))
 # grid_plot(*plots)
 
 # multilayer = MultiLayer(

@@ -1,18 +1,18 @@
 import matplotlib.pyplot as plt
 import numpy as np
+from networkx import draw
 
 from network import MultiLayer
 
 
-def grid_plot(*args, title='', show=True):
+def grid_plot(*args, show=True):
     size = np.sqrt(len(args)) + 1
-    plt.title(title)
-    for idx, plot in enumerate(args):
+    for idx, (name, plot) in enumerate(args):
         plt.subplot(size, size, idx + 1)
+        plt.title(name)
         plot()
 
     if show:
-
         plt.show()
 
 
@@ -22,7 +22,8 @@ def plot_2d_data(x, y, x_title, y_title, show=False, title='', **args):
     def init_plot(show=False):
         plt.xlabel(x_title)
         plt.ylabel(y_title)
-        plt.title(title)
+        if title != '':
+            plt.title(title)
         plt.plot(x, y)
         if show:
             plt.show()
@@ -33,6 +34,8 @@ def plot_2d_data(x, y, x_title, y_title, show=False, title='', **args):
 
 def plot_network_layers(net):
     assert isinstance(net, MultiLayer), 'Net has to be an instance of MultiLayer'
-
-
-    for layer in MultiLayer:
+    from networkx import draw_networkx
+    plots = []
+    for name, nx_layer in net.layers:
+        plots.append((name, lambda: draw(nx_layer)))
+    grid_plot(*plots)
