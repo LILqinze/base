@@ -6,7 +6,7 @@ from network import MultiLayer
 
 
 def grid_plot(*args, show=True):
-    size = np.sqrt(len(args)) + 1
+    size = np.ceil(np.sqrt(len(args)))
     for idx, (name, plot) in enumerate(args):
         plt.subplot(size, size, idx + 1)
         plt.title(name)
