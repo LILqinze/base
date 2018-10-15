@@ -6,6 +6,13 @@ from network import MultiLayer
 
 
 def grid_plot(*args, show=True):
+    """Grid plot
+
+    Keyword Arguments:
+        *args {tuple} -- args are tuples with (name of graph, plot function without any args)
+        show {bool} -- tells whether to draw or not (default: {True})
+    """
+
     size = np.ceil(np.sqrt(len(args)))
     for idx, (name, plot) in enumerate(args):
         plt.subplot(size, size, idx + 1)
@@ -16,7 +23,7 @@ def grid_plot(*args, show=True):
         plt.show()
 
 
-def plot_2d_data(x, y, x_title, y_title, show=False, title='', **args):
+def plot_2d_data(x, y, x_title, y_title, show=False, title=''):
     assert len(x) == len(y), 'x and y have to be the same length'
 
     def init_plot(show=False):
