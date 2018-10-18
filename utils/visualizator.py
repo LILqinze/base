@@ -39,10 +39,10 @@ def plot_2d_data(x, y, x_title, y_title, show=False, title=''):
     return init_plot
 
 
-def plot_network_layers(net):
+def plot_network_layers(net, with_labels=True):
     assert isinstance(net, MultiLayer), 'Net has to be an instance of MultiLayer'
     from networkx import draw_networkx
     plots = []
     for name, nx_layer in net.layers:
-        plots.append((name, lambda: draw(nx_layer)))
+        plots.append((name, lambda: draw(nx_layer, with_labels=with_labels)))
     grid_plot(*plots)
