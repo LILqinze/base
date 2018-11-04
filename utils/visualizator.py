@@ -1,6 +1,5 @@
 import matplotlib.pyplot as plt
 import numpy as np
-from networkx import draw
 
 from network import MultiLayer
 
@@ -39,10 +38,10 @@ def plot_2d_data(x, y, x_title, y_title, show=False, title=''):
     return init_plot
 
 
-def plot_network_layers(net, with_labels=True):
+def plot_network_layers(net, **kwargs):
     assert isinstance(net, MultiLayer), 'Net has to be an instance of MultiLayer'
-    from networkx import draw_networkx
+    from networkx import draw
     plots = []
     for name, nx_layer in net.layers:
-        plots.append((name, lambda: draw(nx_layer, with_labels=with_labels)))
+        plots.append((name, lambda: draw(nx_layer, **kwargs)))
     grid_plot(*plots)
