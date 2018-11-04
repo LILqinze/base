@@ -1,10 +1,9 @@
 from itertools import product
 
-import numpy as np
-
 from pylog import *
 
 
+# FIXME: uncomment the log
 # @try_catch_log('cross-layer clustering coefficient for node: %1', dbg, print_result=True)
 def clcc(net, node, threshold=1):
     """ Description
@@ -46,6 +45,7 @@ def clcc(net, node, threshold=1):
 
     result = lcc_sum / (2 * len(neighbors_counts) * len(net.nx_layers))
     return result
+
 
 @try_catch_log('Clcc distribution')
 def clcc_distribution(net, treshold=1):

@@ -4,6 +4,7 @@ from collections import namedtuple
 def gen(name):
     return getattr(__import__('networkx.generators'), name)
 
+
 class ModelBase:
     def __init__(self, name, gen=None, model=None):
         assert not bool(gen) != (not bool(model)), 'There has to be only one of (gen, model)'
