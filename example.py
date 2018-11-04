@@ -16,7 +16,7 @@ example_nets = [
 multilayer = MultiLayer(Layer.combine(*example_nets), *example_nets)
 
 # # GRAPH VISUALIZATION EXAMPLE
-# plot_network_layers(multilayer)
+# plot_network_layers(multilayer, with_labels=True)
 
 # VISUALIZATION EXAMPLE
 plots = []
