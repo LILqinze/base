@@ -21,7 +21,8 @@ class Downloader:
             wrn(f'{filepath} already exists. Skipping downloading.')
             return
         try:
-            inf(f'{self._name} database to be downloaded')
+            self._create_database_dir_if_not_exists()
+            inf(f'{self._name} database to be downloaded from {self._url}')
             response = reqs.get(self._url, stream=True)
             file_size = int(response.headers['Content-Length'])
             chunk_no, chunk_size = 1, 1024
@@ -36,3 +37,8 @@ class Downloader:
             inf(f'Saved to {filepath}.{format}')
         except Exception as e:
             err(e)
+
+    def _create_database_dir_if_not_exists(self):
+        if not os.path.isdir(DEFAULT_DATABASE_DIR):
+            inf(f'Creating database directory in {DEFAULT_DATABASE_DIR}')
+            os.mkdir(DEFAULT_DATABASE_DIR)
