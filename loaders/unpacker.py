@@ -2,7 +2,7 @@ import os
 from zipfile import ZipFile
 
 from pylog import *
-from utils.utils import file_format
+from utils.utils import *
 
 from .datasets import DEFAULT_DATABASE_DIR, KNOWN_ARCHIVE_FORMATS
 
@@ -11,11 +11,31 @@ class Unpacker:
 
     def __init__(self, dataset_name):
         self._path = f'{DEFAULT_DATABASE_DIR}/{dataset_name}'
-        self._dataset_archive_path = self._search_for_dataset(dataset_name)
+        self._dataset_archive_path = self._search_for_database(dataset_name)
         assert file_format(self._dataset_archive_path) in KNOWN_ARCHIVE_FORMATS, 'Unsupported archive format'
-        
-    @staticmethod
-    def _search_for_dataset(filename):
+        self.unpack_recursive(self._dataset_archive_path)
+
+    def unpack(self, filepath):
+        if file_format(filepath) == 'zip':
+            return self.unzip(filepath)
+        else:
+            wrn(f'Not supported file format {filepath}')
+
+    def unpack_recursive(self, filepath):
+        to_unpack = set([filepath])
+        while to_unpack:
+            archive = to_unpack.pop()
+            archives_in_archive = self.unpack(archive)
+            to_unpack.update(archives_in_archive)
+            inf(f'Removing {archive}', prog=True)
+            try:
+                # os.remove(archive)
+                ok()
+            except NotImplementedError as e:
+                wrn(e)
+
+    @classmethod
+    def _search_for_database(cls, filename):
         for root, dirs, files in os.walk(DEFAULT_DATABASE_DIR):
             for file in files:
                 if filename in file:
