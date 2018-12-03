@@ -2,8 +2,6 @@ from itertools import product
 
 import networkx as nx
 
-from pylog import *
-
 from .layer import Layer
 from .multilayer_init import MultiLayerInitializer
 

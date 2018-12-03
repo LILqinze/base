@@ -1,7 +1,5 @@
-from pylog import *
 
 
-@try_catch_log('Network degree distribution for each layer', prog=False)
 def degs_dist(net):
     """
     :param net: a multilayer network
@@ -15,7 +13,6 @@ def degs_dist(net):
     return dist
 
 
-@try_catch_log('Whole network degree distribution', prog=False)
 def flat_degs_dist(net):
     """
     :param net: a multilayer network

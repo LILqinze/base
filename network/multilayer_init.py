@@ -1,5 +1,3 @@
-from pylog import *
-
 from .layer import Layer
 
 
@@ -14,16 +12,13 @@ class MultiLayerInitializer:
             return self._create_layers(layers_names, layers)
         return self.layers
 
-    @try_catch_log('Setting names', dbg)
     def _layers_names(self, layers):
         names = set()
         for idx, layer in enumerate(layers):
             name = f'{idx}_{layer}'
             names.add(name)
-            dbg(name)
         return names
 
-    @try_catch_log('Creating layers')
     def _create_layers(self, layers_names, layers):
         nx_layers = dict()
         for layer_name, layer in zip(layers_names, layers):

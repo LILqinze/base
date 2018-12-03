@@ -1,14 +1,11 @@
 import networkx as nx
 
-from pylog import *
-
 from .models import ModelBase, Models
 
 
 class Layer:
     def __init__(self, model, **params):
-        if not isinstance(model, ModelBase):
-            err('Model is not instance of ModelBase class')
+        assert isinstance(model, ModelBase)
 
         self._model = model
         self._params = params
@@ -43,10 +40,8 @@ class Layer:
             return cls._create_from_layers(name, layers)
         if all(isinstance(layer, nx.Graph) for layer in layers):
             return cls._create_from_nx_graphs(name, layers)
-        err('layers have to be nx.Graph or Layer instances')
 
     @classmethod
-    @try_catch_log(f'Combining layers using nx.Graph objects')
     def _create_from_nx_graphs(cls, name, layers, directed=False):
         all_edges = set()
         all_nodes = list(range(max(max(layer.nodes for layer in layers))))
@@ -70,7 +65,6 @@ class Layer:
         return Layer(model=Models.combined(**args))
 
     @classmethod
-    @try_catch_log('Creating nx.Graphs from Layer objects', prog=False)
     def _create_from_layers(cls, name, layers):
         new_layers = list()
         for layer in layers:

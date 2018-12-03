@@ -1,10 +1,6 @@
 from itertools import product
 
-from pylog import *
 
-
-# FIXME: uncomment the log
-# @try_catch_log('cross-layer clustering coefficient for node: %1', dbg, print_result=True)
 def clcc(net, node, threshold=1):
     """ Description
     # TODO
@@ -47,7 +43,6 @@ def clcc(net, node, threshold=1):
     return result
 
 
-@try_catch_log('Clcc distribution')
 def clcc_distribution(net, treshold=1):
     # WRITTEN TO VISUALIZATOR TEST
     # TODO real distribution not only value for each node

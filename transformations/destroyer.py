@@ -3,8 +3,6 @@ import random
 
 import networkx as nx
 
-from pylog import *
-
 
 def reduce_to_frac_with_shuffle(elements, frac):
     assert 0 <= frac < 1
@@ -27,7 +25,6 @@ class Destroyer:
     def __init__(self, net):
         self._network = net
 
-    @try_catch_log('Removing %1 of edges')
     def remove_random_edges(self, rm_frac):
         edges_on_layers = self._network.edges_on_layers()
         edges_to_destroy = reduce_to_frac_with_shuffle(extract_from_layers(edges_on_layers), rm_frac)
@@ -38,7 +35,6 @@ class Destroyer:
 
         return reduced_net
 
-    @try_catch_log('Removing %1 of nodes')
     def remove_random_nodes(self, rm_frac):
         nodes_on_layers = self._network.nodes_on_layers()
         nodes_to_destroy = reduce_to_frac_with_shuffle(extract_from_layers(nodes_on_layers), rm_frac)
@@ -49,7 +45,6 @@ class Destroyer:
 
         return reduced_net
 
-    @try_catch_log('Rewiring random edges (tries: %1) with no degree change')
     def rewire_random_edges_preserving_degree(self, layer_tries):
         # TODO add connected_double_edge_swap in the future :)
         rewired_net = copy.deepcopy(self._network)

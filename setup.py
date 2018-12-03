@@ -1,13 +1,8 @@
 #!/usr/bin/env python3
-try:
-    from pylog import inf, ok, err
-except:
-    print("Please, checkout pylog library from git submodule")
-    exit(-1)
+import logging
 
 try:
-    inf("Checking networkx", True)
     import networkx
-    ok()
 except:
-    err("There's no networkx")
+    print("There's no networkx")
+    exit(-1)
