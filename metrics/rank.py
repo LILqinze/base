@@ -2,7 +2,7 @@ import random as rand
 
 import scipy.stats as stats
 
-from utils import keys_sorted_by_values
+from ..utils import keys_sorted_by_values
 
 
 def random_rank_complement(rank, complementary_rank):

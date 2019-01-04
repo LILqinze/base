@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-from network import MultiLayer
+from ..network import MultiLayer
 
 
 def grid_plot(*args, show=True):
