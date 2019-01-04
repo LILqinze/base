@@ -1,6 +1,6 @@
 import networkx as nx
 
-from .models import ModelBase, Models
+from munea_core.network.models import ModelBase, Models
 
 
 class Layer:

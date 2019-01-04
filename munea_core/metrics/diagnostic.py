@@ -1,5 +1,3 @@
-
-
 def degs_dist(net):
     """
     :param net: a multilayer network
