@@ -1,8 +1,13 @@
-#!/usr/bin/env python3
-import logging
+from setuptools import find_packages
+from setuptools import setup
 
-try:
-    import networkx
-except:
-    print("There's no networkx")
-    exit(-1)
+setup(
+    name='munea_core',
+    version='',
+    packages=find_packages(),
+    url='',
+    license='',
+    author='',
+    author_email='',
+    description=''
+)

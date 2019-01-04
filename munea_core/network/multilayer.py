@@ -1,13 +1,8 @@
-from itertools import product
-
-import networkx as nx
-
-from .layer import Layer
-from .multilayer_init import MultiLayerInitializer
+from munea_core.network.multilayer_init import MultiLayerInitializer
 
 
 class MultiLayer:
-    # TODO iterator over layers (can be usefull)
+    # TODO iterator over layers (can be useful)
     def __init__(self, *layers):
         initializer = MultiLayerInitializer(*layers)
         self._layers = initializer()

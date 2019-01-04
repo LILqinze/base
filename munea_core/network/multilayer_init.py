@@ -1,6 +1,3 @@
-from .layer import Layer
-
-
 class MultiLayerInitializer:
     def __init__(self, *layers):
         layers_names = self._layers_names(layers)
