@@ -25,6 +25,10 @@ class Destroyer:
     def __init__(self, net):
         self._network = net
 
+    @property
+    def network(self):
+        return self._network
+
     def remove_random_edges(self, rm_frac):
         edges_on_layers = self._network.edges_on_layers()
         edges_to_destroy = reduce_to_frac_with_shuffle(extract_from_layers(edges_on_layers), rm_frac)
