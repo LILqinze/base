@@ -1,4 +1,7 @@
-from itertools import product
+import multiprocessing as mp
+from itertools import product, chain
+
+from tqdm import tqdm
 
 
 def clcc(net, node, threshold=1):
@@ -23,10 +26,9 @@ def clcc(net, node, threshold=1):
 
     assert node in net.available_nodes()
 
-    for layer in net.nx_layers:
-        if node in layer.nodes():
-            for neighbor in layer.neighbors(node):
-                neighbors_counts[neighbor] = neighbors_counts.get(neighbor, 0) + 1
+    layers = filter(lambda layer: node in layer.nodes(), net.nx_layers)
+    for neighbor in chain(*map(lambda layer: layer.neighbors(node), layers)):
+        neighbors_counts[neighbor] = neighbors_counts.get(neighbor, 0) + 1
 
     neighbors_counts = {neighbor: occurrences for neighbor, occurrences
                         in neighbors_counts.items() if occurrences >= threshold}
@@ -34,18 +36,25 @@ def clcc(net, node, threshold=1):
     if not neighbors_counts:
         return result
 
-    for layer in net.layers_names:
-        neighbors = neighbors_counts.keys()
-        for v, h in product(neighbors, neighbors):
-            lcc_sum += (net.has_edge(layer, h, v) + net.has_edge(layer, v, h))
+    neighbors = neighbors_counts.keys()
+
+    for layer, (v, h) in product(net.layers_names, product(neighbors, neighbors)):
+        lcc_sum += (net.has_edge(layer, h, v) + net.has_edge(layer, v, h))
 
     result = lcc_sum / (2 * len(neighbors_counts) * len(net.nx_layers))
     return result
 
 
-def clcc_distribution(net, treshold=1):
+def clcc_distribution(net, treshold=1, njobs=-1, tqdm_enable=True):
     # WRITTEN TO VISUALIZATOR TEST
     # TODO real distribution not only value for each node
+    if njobs <= 0:
+        njobs = mp.cpu_count()
+
     all_nodes = list(net.available_nodes())
-    results = list(map(lambda node: clcc(net, node, treshold), all_nodes))
+    with mp.Pool(processes=njobs) as pool:
+        results = pool.starmap(clcc, tqdm([[net, node, treshold] for node in all_nodes],
+                                          'CLCC',
+                                          disable=not tqdm_enable,
+                                          leave=False))
     return all_nodes, results

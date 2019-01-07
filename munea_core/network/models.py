@@ -11,8 +11,10 @@ class ModelBase:
         self.name = name
         if gen:
             self.gen = gen
-        else:
+        elif model:
             self.model = model
+        else:
+            raise
 
 
 class Models:
