@@ -3,7 +3,6 @@ import os
 import requests as reqs
 from tqdm import tqdm
 
-from pylog import *
 from utils.utils import file_format
 
 from .datasets import DEFAULT_DATABASE_DIR
