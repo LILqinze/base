@@ -35,6 +35,7 @@ def plot_2d_data(x, y, x_title, y_title, show=False, title=''):
             plt.show()
     if show:
         init_plot(show)
+        
     return init_plot
 
 
