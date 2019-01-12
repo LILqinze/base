@@ -46,6 +46,6 @@ def clcc(net, node, threshold=1):
 def clcc_distribution(net, treshold=1):
     # WRITTEN TO VISUALIZATOR TEST
     # TODO real distribution not only value for each node
-    all_nodes = list(net.available_nodes())
+    all_nodes = sorted(list(net.available_nodes()))
     results = list(map(lambda node: clcc(net, node, treshold), all_nodes))
     return all_nodes, results

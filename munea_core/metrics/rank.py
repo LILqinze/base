@@ -12,6 +12,7 @@ def random_rank_complement(rank, complementary_rank):
     return complement
 
 
+# TODO: add other methods of compensation / cutting...
 def compare_network_ranks(first_rank, second_rank,
                           compare_method=stats.kendalltau):
     first_rank.extend(random_rank_complement(first_rank, second_rank))

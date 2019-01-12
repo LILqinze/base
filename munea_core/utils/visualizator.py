@@ -11,7 +11,7 @@ def grid_plot(*args, show=True):
         *args {tuple} -- args are tuples with (name of graph, plot function without any args)
         show {bool} -- tells whether to draw or not (default: {True})
     """
-
+    plt.figure(figsize=(20, 15))
     size = np.ceil(np.sqrt(len(args)))
     for idx, (name, plot) in enumerate(args):
         plt.subplot(size, size, idx + 1)
