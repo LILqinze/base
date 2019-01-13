@@ -31,7 +31,6 @@ def clcc(net, node, threshold=1):
     neighbors_counts = Counter(chain(*map(lambda layer: layer.neighbors(node), layers)))
     neighbors_counts = {neighbor: occurrences for neighbor, occurrences
                         in neighbors_counts.items() if occurrences >= threshold}
-
     if not neighbors_counts:
         return result
 
@@ -53,9 +52,9 @@ def clcc_distribution(net, treshold=1, njobs=-1, tqdm_enable=True):
     all_nodes = list(net.available_nodes())
 
     with mp.Pool(processes=njobs) as pool:
-        results = pool.starmap_async(clcc, tqdm([[net, node, treshold] for node in all_nodes],
-                                                'CLCC',
-                                                disable=not tqdm_enable,
-                                                leave=False))
+        results = pool.starmap(clcc, tqdm([[net, node, treshold] for node in all_nodes],
+                                          'CLCC',
+                                          disable=not tqdm_enable,
+                                          leave=False))
 
     return all_nodes, results

@@ -13,11 +13,14 @@ class MultiLayer:
 
     @property
     def layers_names(self):
-        return self._layers.keys()
+        return list(self._layers.keys())
 
     @property
     def layers(self):
         return self._layers.items()
+
+    def __str__(self):
+        return '_'.join(self.layers_names)
 
     def specified_layer(self, layer_name):
         return self._layers[layer_name]
